@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginPage from '../screens/LoginPage';
 import ScanPage from '../screens/ScanPage';
 import ShowReceipt from '../screens/ShowReceipt';
+import AddProduct from '../screens/AddProduct';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,11 @@ export default function HomeStack() {
         <Stack.Screen
         name="Show"
         component={ShowReceipt}
+        options={{ headerShown: false}}
+        />
+        <Stack.Screen
+        name="Add"
+        component={AddProduct}
         options={{ headerShown: false}}
         />
       </Stack.Navigator>

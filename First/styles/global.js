@@ -46,8 +46,8 @@ export const globalStyles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingHorizontal: 10,
-    marginTop: 1,
+    paddingHorizontal: 1,
+    marginTop: 10,
     alignItems: 'center',
     width: '55%',
   },
@@ -123,8 +123,33 @@ productsButtons:{
   borderWidth: 2,
   borderColor: 'black',
   alignSelf: 'flex-end',
-}
+},
+inputDropdown: {
+  borderWidth: 1,
+  borderColor: '#777',
+  padding: 1,
+  margin: 10,
+  width: 120,
+},
+lower: {
+  height: 80,
+  paddingTop: 10,
+  backgroundColor: 'coral',
+  justifyContent: 'space-between',
+  flexDirection: 'row-reverse',
+  alignItems: 'baseline',
+  paddingHorizontal: 20,
+},
+buttonContainerReceipt: {
+  flexDirection: 'row',
+  justifyContent: 'flex-start',
+  paddingHorizontal: 1,
+  marginTop: -10,
+  alignItems: 'center',
+  width: '55%',
+},
 
-}
-);
+});
+
+
 
