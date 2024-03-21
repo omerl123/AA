@@ -10,7 +10,7 @@ function CenterSquareScreen ({route})  {
   const [products, setProducts] = useState([
     { name: 'steak', amount: 3, price: 90 },
     { name: 'salad', amount: 4, price: 30},
-    { name: 'france fries', amount: 7, price: 18 },
+    { name: 'french fries', amount: 7, price: 18 },
     { name: 'cola', amount: 2, price: 10 },
     { name: 'water', amount: 5, price: 7 },
   ]);

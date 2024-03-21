@@ -144,7 +144,6 @@ lowerButtons: {
   justifyContent: 'space-between',
   alignItems: 'baseline',
   paddingHorizontal: 20,
-  flexDirection: 'row-reverse',
 },
 
 buttonContainerReceipt: {
@@ -167,6 +166,39 @@ backArrow: {
   fontSize: 25,
   marginRight: 0,
   color: 'black',
+},
+model :{
+  width: 300,
+  height: 200,
+  backgroundColor: 'white',
+  marginTop: 350,
+  marginLeft: 55,
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  flexDirection:'row' ,
+  borderColor:'black',
+  borderWidth: 3,
+},
+
+inputFade :{
+position: 'absolute', 
+top: 70 ,
+left:40,
+alignSelf: 'center' ,
+},
+buttonsFade :{
+  flexDirection: 'row',
+   justifyContent: 'space-around',
+    width: '100%', 
+    alignSelf: 'center',
+    marginTop: 150 ,
+    right:140,
+},
+percentageSign: {
+  fontSize: 20,
+  alignSelf: 'center',
+  marginBottom:140,
+  left:80,
 },
 
 });

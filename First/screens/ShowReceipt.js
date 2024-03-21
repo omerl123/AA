@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Text, View, Button, ScrollView } from 'react-native';
+import { Text, View, Button, ScrollView, Modal, TouchableWithoutFeedback, TextInput } from 'react-native';
 import { globalStyles } from '../styles/global';
 import Header from '../components/Header';
 import { useNavigation } from '@react-navigation/native';
 import { Dropdown } from 'react-native-element-dropdown';
+
 
 
 
@@ -19,6 +20,9 @@ function ShowReceipt({ route }) {
     const [totalPrice, setTotalPrice] = useState(0);
     const [previousAmounts, setPreviousAmounts] = useState(initialProducts.map(product => product.amount));
     const password = route.params && route.params.password ? route.params.password : null;
+    const [modalOpen, setModelOpen] = useState(false);
+    const [Tip, SetTip] = useState(0);
+
 
     const handleAmountChange = (value, productIndex) => {
         const updatedAmountValues = [...amountValues];
@@ -41,7 +45,44 @@ function ShowReceipt({ route }) {
 
     return (
         <View style={{ backgroundColor: 'azure', flex: 1 }}>
-            <Header navigation={navigation} />
+        <Header navigation={navigation} />
+        <Modal visible={modalOpen} animationType='fade' transparent={true}>
+        <View style={globalStyles.model}>
+        <Text style={globalStyles.percentageSign}>TipPercentage</Text>
+            <View style={globalStyles.inputFade}>
+            <TextInput style={globalStyles.input} value={Tip.toString()} onChangeText={(text) => {
+                                                                                const newTip = parseFloat(text.replace('%', '')); 
+                                                                                if (!isNaN(newTip)) {
+                                                                                    SetTip(newTip);
+                                                                                } else {
+                                                                                    SetTip(0);
+                                                                                }
+                                                                            }}
+
+                                                        placeholder='Enter Percent of tip...'  
+                                                        keyboardType='numeric'
+                                                    />
+                </View>
+            <View style={globalStyles.buttonsFade}>
+                <Button title='Close' onPress={() => setModelOpen(false)} />
+                <Button
+                            title='Calculate'
+                            onPress={() => {
+                                const tipAmount = parseFloat(Tip);
+                                if (!isNaN(tipAmount)) {
+                                    const tipPrice = totalPrice * (tipAmount / 100);
+                                    const newTotal = totalPrice + tipPrice;
+                                    setTotalPrice(newTotal);
+                                    setModelOpen(false);
+                                }
+                            }}
+                        />
+            </View>
+        </View>
+    </Modal>
+
+    
+
             <Text style={globalStyles.text}>Receipt</Text>
             <Text style={globalStyles.text}>PasswordToShare: {password}</Text>
             <ScrollView>
@@ -49,10 +90,10 @@ function ShowReceipt({ route }) {
                     <View key={index} style={globalStyles.products}>
                         <Text style={globalStyles.productsText}>name: {product.name}</Text>
                         <Text style={globalStyles.productsText}>
-                        amount: {product.amount} 
-                        ({splitValues[index]?.value})
-                        ({split_toValues[index]?.value })
-                         </Text>
+                            amount: {product.amount} 
+                            ({splitValues[index]?.value})
+                            ({split_toValues[index]?.value })
+                        </Text>
                         <Text style={globalStyles.productsText}>price: {product.price}</Text>
                         <View style={globalStyles.buttonContainerReceipt}>
                             <Button
@@ -61,6 +102,7 @@ function ShowReceipt({ route }) {
                                 onPress={() => {
                                     const selectedProduct = products[index];
                                     const newAmountValue = parseInt(amountValues[index]?.value) || 0;
+                                    if (newAmountValue != 0){
                                     if (selectedProduct.amount - newAmountValue >= 0) {
                                         const newTotal = totalPrice + newAmountValue * selectedProduct.price;
                                         setProducts(prevProducts => {
@@ -73,6 +115,9 @@ function ShowReceipt({ route }) {
                                     } else {
                                         alert("The amount is greater than the existing amount of products😊");
                                     }
+                                }else{
+                                    alert("A value greater than 0 must be entered");
+                                }
                                 }}
                             />
                             <Dropdown
@@ -86,37 +131,37 @@ function ShowReceipt({ route }) {
                             />
                         </View>
                         <View style={globalStyles.buttonContainerReceipt}>
-                        <Button 
-                        title="Split" 
-                        style={globalStyles.productsButtons}
-                        onPress={() => {
-                            const selectedProduct = products[index];
-                            const newSplitValue = parseInt(splitValues[index]?.value) || 0;
-                            const newSplitToValue = parseInt(split_toValues[index]?.value) || 0;
-                                const newTotal = totalPrice + (selectedProduct.price * newSplitValue) / newSplitToValue;
-                                if (selectedProduct.amount - newSplitValue >= 0) {
-                                    if ( newSplitToValue > 1) {
-                                    setProducts(prevProducts => {
-                                        const updatedProducts = [...prevProducts];
-                                        updatedProducts[index] = { ...updatedProducts[index], amount: selectedProduct.amount - newSplitValue };
-                                        return updatedProducts;
-                                    });
-                                    setTotalPrice(newTotal);
-                                    setSplitValues([]);
-                                    setSplitToValues([]);
+                            <Button 
+                                title="Split" 
+                                style={globalStyles.productsButtons}
+                                onPress={() => {
+                                    const selectedProduct = products[index];
+                                    const newSplitValue = parseInt(splitValues[index]?.value) || 0;
+                                    const newSplitToValue = parseInt(split_toValues[index]?.value) || 0;
+                                    const newTotal = totalPrice + (selectedProduct.price * newSplitValue) / newSplitToValue;
+                                    if (newSplitValue != 0) {
+                                        if (selectedProduct.amount - newSplitValue >= 0) {
+                                            if (newSplitToValue > 1) {
+                                                setProducts(prevProducts => {
+                                                    const updatedProducts = [...prevProducts];
+                                                    updatedProducts[index] = { ...updatedProducts[index], amount: selectedProduct.amount - newSplitValue };
+                                                    return updatedProducts;
+                                                });
+                                                setTotalPrice(newTotal);
+                                                setSplitValues([]);
+                                                setSplitToValues([]);
+                                            } else {
+                                                alert("A value greater than 1 must be entered in SplitTo");
+                                            }
+                                        } else {
+                                            alert("The amount is greater than the existing amount of products 😊");
+                                        }
+                                    } else {
+                                        alert("A value greater than 0 must be entered");
                                     }
-                                    else {
-                                        alert("A value greater than 1 must be entered in SplitTo");
-                                    }
-                                }
-                                 else {
-                                    alert("The amount is greater than the existing amount of products 😊");
-                                }
-                            
-                        }
-                        }
-                    />
-
+                                    
+                                }}
+                            />
                             <Dropdown
                                 style={globalStyles.inputDropdown}
                                 data={[...Array(sum + 1).keys()].map(value => ({ label: value.toString(), value: value }))}
@@ -141,7 +186,10 @@ function ShowReceipt({ route }) {
                 ))}
             </ScrollView>
             <View style={globalStyles.lowerButtons}>
-            <Button
+                <Text style={globalStyles.TotalPriceText}>Total Price: {totalPrice.toFixed(2)}</Text>
+            </View>
+            <View style={[globalStyles.lowerButtons,{  flexDirection: 'row-reverse'}]}>
+                <Button
                     title='reset'
                     style={globalStyles.button}
                     color='red'
@@ -157,19 +205,19 @@ function ShowReceipt({ route }) {
                         setTotalPrice(0);
                     }}
                 />
-                <Text style={globalStyles.TotalPriceText}>Total Price: {totalPrice.toFixed(2)}</Text>
+                <Button title='Tip' style={globalStyles.button} onPress={() => setModelOpen(true)}/> 
                 <Button title='add item' 
-                style={globalStyles.button}
-                color='green'
-                 onPress={() => navigation.navigate("Add", {
-                    products: products,
-                    setProducts: setProducts,
-                    setAmountValues: setAmountValues,
-                    setSplitValues: setSplitValues,
-                    setSplitToValues: setSplitToValues,
-                    setPreviousAmounts: setPreviousAmounts,
-                })} />
-
+                    style={globalStyles.button}
+                    color='green'
+                    onPress={() => navigation.navigate("Add", {
+                        products: products,
+                        setProducts: setProducts,
+                        setAmountValues: setAmountValues,
+                        setSplitValues: setSplitValues,
+                        setSplitToValues: setSplitToValues,
+                        setPreviousAmounts: setPreviousAmounts,
+                    })} 
+                />
             </View>
         </View>
     );
