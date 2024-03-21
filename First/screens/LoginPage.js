@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import { globalStyles } from '../styles/global';
 import { useNavigation } from '@react-navigation/native';
 
-export default function LoginPage() {
+function LoginPage() {
   const [UserName, SetUserName] = useState('');
   const [Password, SetPassword] = useState('');
   const navigation = useNavigation();
@@ -19,15 +19,15 @@ export default function LoginPage() {
         <Header />
         <View style={globalStyles.back}>
           <Text>UserName</Text>
-          <TextInput style={globalStyles.input} tvalue={UserName} onChangeText={SetUserName} placeholder='Enter username...' />
+          <TextInput style={globalStyles.input} tvalue={UserName} onChangeText={SetUserName} placeholder='Enter Username...' />
           <Text>Password</Text>
-          <TextInput style={globalStyles.input} value={Password} onChangeText={SetPassword} placeholder='Enter password...' />
+          <TextInput style={globalStyles.input} value={Password} onChangeText={SetPassword} placeholder='Enter Password...' />
           <View style={globalStyles.buttonContainer}>
             <Button title='Login' style={globalStyles.button} onPress={() => navigation.navigate("Scan",{
               parmaKey: UserName
             })
-            }></Button>
-            <Button title='Register' style={globalStyles.button}></Button>
+            }/>
+            <Button title='Register' style={globalStyles.button} onPress={() => navigation.navigate("Register")}/>
           </View>
         </View>
       </View>
@@ -35,3 +35,4 @@ export default function LoginPage() {
   );
 }
 
+export default LoginPage;

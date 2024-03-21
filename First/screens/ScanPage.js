@@ -41,8 +41,14 @@ function generateRandomPassword() {
     })
   }
 />
-      <Button title = 'return' style={globalStyles.button} onPress={() => {navigation.navigate("Login");
-    handleAddPress={handleAddPress};}}/>
+      <Button title = 'upload' />
+      </View>
+      <View style={globalStyles.buttonContainerCode}>
+      <Button title="i have a code" onPress={() => navigation.navigate("Code",{
+         products: products,
+         setProducts: setProducts,
+      }
+      )}/>
       </View>
     </View>
   );

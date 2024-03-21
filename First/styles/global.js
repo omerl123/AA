@@ -200,7 +200,11 @@ percentageSign: {
   marginBottom:140,
   left:80,
 },
-
+buttonContainerCode: {
+  marginTop: 20,
+  alignItems: 'center',
+  width: '40%',
+},
 });
 
 

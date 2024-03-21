@@ -80,11 +80,8 @@ function ShowReceipt({ route }) {
             </View>
         </View>
     </Modal>
-
-    
-
             <Text style={globalStyles.text}>Receipt</Text>
-            <Text style={globalStyles.text}>PasswordToShare: {password}</Text>
+            <Text style={globalStyles.text}>CodeToShare: {password}</Text>
             <ScrollView>
                 {products.map((product, index) => (
                     <View key={index} style={globalStyles.products}>

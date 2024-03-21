@@ -5,6 +5,8 @@
   import ScanPage from '../screens/ScanPage';
   import ShowReceipt from '../screens/ShowReceipt';
   import AddProduct from '../screens/AddProduct';
+  import Code from '../screens/CodeEnter';
+  import Register from '../screens/Register';
 
   const Stack = createNativeStackNavigator();
 
@@ -30,6 +32,16 @@
           <Stack.Screen
           name="Add"
           component={AddProduct}
+          options={{ headerShown: false,Add: (props) => <Add {...props} />}}
+          />
+          <Stack.Screen
+          name="Code"
+          component={Code}
+          options={{ headerShown: false,Add: (props) => <Add {...props} />}}
+          />
+           <Stack.Screen
+          name="Register"
+          component={Register}
           options={{ headerShown: false,Add: (props) => <Add {...props} />}}
           />
         </Stack.Navigator>

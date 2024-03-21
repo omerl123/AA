@@ -11,25 +11,29 @@ function AddProduct({ route }) {
   const {setProducts, setAmountValues, setSplitValues, setSplitToValues,setPreviousAmounts } = route.params;
 
   const handleAddButtonPress = () => {
-    const productToAdd = {
-      name: newProductName,
-      amount: parseInt(newProductAmount),
-      price: parseFloat(newProductPrice),
-    };
+    if (typeof newProductName == 'string' && !isNaN(newProductAmount) && !isNaN(newProductPrice) &&
+    (newProductName && newProductAmount && newProductPrice)) {
+      const productToAdd = {
+        name: newProductName,
+        amount: parseInt(newProductAmount),
+        price: parseFloat(newProductPrice),
+      };
   
-    setProducts(prevProducts => [...prevProducts, productToAdd]);
-    setAmountValues(prevAmountValues => [...prevAmountValues, parseInt(newProductAmount)]);
-    setSplitValues(prevSplitValues => [...prevSplitValues, parseInt(newProductAmount)]);
-    setSplitToValues(prevSplitToValues => [...prevSplitToValues, parseInt(newProductAmount)]);
-    setPreviousAmounts(prevpreviousAmounts => [...prevpreviousAmounts, parseInt(newProductAmount)]);
-
-
+      setProducts(prevProducts => [...prevProducts, productToAdd]);
+      setAmountValues(prevAmountValues => [...prevAmountValues, parseInt(newProductAmount)]);
+      setSplitValues(prevSplitValues => [...prevSplitValues, parseInt(newProductAmount)]);
+      setSplitToValues(prevSplitToValues => [...prevSplitToValues, parseInt(newProductAmount)]);
+      setPreviousAmounts(prevpreviousAmounts => [...prevpreviousAmounts, parseInt(newProductAmount)]);
   
-    setNewProductName(''); 
-    setNewProductAmount('');
-    setNewProductPrice('');
-    navigation.navigate("Show");
+      setNewProductName('');
+      setNewProductAmount('');
+      setNewProductPrice('');
+      navigation.navigate("Show");
+    } else {
+      alert('The fields are empty or you filled them in incorrectly');
+    }
   }
+  
   
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -57,7 +61,7 @@ function AddProduct({ route }) {
           />
           <Button title="Add" onPress={handleAddButtonPress} />
           <View style={{ marginTop: 20 }}>
-            <Button title="Close Modal" onPress={() => navigation.navigate("Show")} />
+            <Button title="Close" onPress={() => navigation.navigate("Show")} />
           </View>
         </View>
     </View>
