@@ -14,25 +14,35 @@ function CenterSquareScreen ({route})  {
     { name: 'cola', amount: 2, price: 10 },
     { name: 'water', amount: 5, price: 7 },
   ]);
+    
+function generateRandomPassword() {
+  const length = 7;
+  const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  let password = '';
 
-  const handleAddPress = (newProduct) => {
-    setProducts(prevProducts => [...prevProducts, newProduct]);
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * charset.length);
+    password += charset[randomIndex];
   }
+
+  return password;
+}
 
   return (
     <View style={globalStyles.container}>
        <Header />
-       <Text style={globalStyles.name}>Hello {route.params.parmaKey}</Text>
+       <Text style={globalStyles.helloText}>Hello {route.params.parmaKey}</Text>
       <View style={globalStyles.square}/>
       <View style={globalStyles.buttonContainer}>
       <Button title="Scan" onPress={() => navigation.navigate("Show", {
       products: products,
       setProducts: setProducts,
+      password : generateRandomPassword(),
     })
   }
 />
       <Button title = 'return' style={globalStyles.button} onPress={() => {navigation.navigate("Login");
-    handleAddPress={handleAddPress}}}/>
+    handleAddPress={handleAddPress};}}/>
       </View>
     </View>
   );

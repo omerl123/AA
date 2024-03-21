@@ -1,23 +1,24 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View, TouchableWithoutFeedback } from "react-native";
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import { Text, View, TouchableWithoutFeedback } from "react-native";
 import { globalStyles } from '../styles/global';
-import CustomHalfScreen from './CustomHalfScreen'; 
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 export default function Header() {
-    const [modalVisible, setModalVisible] = useState(false);
+    const navigation = useNavigation();
+    const route = useRoute();
 
+    const handleGoBack = () => {
+        navigation.goBack();
+    };
 
     return(
-        <TouchableWithoutFeedback onPress={() => {
-            setModalVisible(false);
-        }}>
-            <View style={globalStyles.header}>
-                <Ionicons name="menu-sharp" size={24} color="black" onPress={() => setModalVisible(true)} />
-                <Text style={globalStyles.title}>EasyReceipt</Text>
-                <CustomHalfScreen modalVisible={modalVisible} setModalVisible={setModalVisible} /> 
-            </View>
-            </TouchableWithoutFeedback>
-        
-    )
+        <View style={globalStyles.header}>
+            <Text style={globalStyles.title}>EasyReceipt</Text>
+            {route.name !== 'Login' && (
+                <TouchableWithoutFeedback onPress={handleGoBack}>
+                    <Text style={globalStyles.backArrow}>{`<`}</Text>
+                </TouchableWithoutFeedback>
+            )}
+        </View>
+    );
 }
