@@ -119,7 +119,7 @@ function ShowReceipt({ route }) {
                             />
                             <Dropdown
                                 style={globalStyles.inputDropdown}
-                                data={[...Array(sum + 1).keys()].map(value => ({ label: value.toString(), value: value }))}
+                                data={[...Array(sum + 1).keys()].map(value => ({ label:  (value + 1).toString(), value: value }))}
                                 value={amountValues[index]?.value || 0}
                                 onChange={(value) => handleAmountChange(value.value, index)}
                                 labelField="label"
@@ -161,7 +161,7 @@ function ShowReceipt({ route }) {
                             />
                             <Dropdown
                                 style={globalStyles.inputDropdown}
-                                data={[...Array(sum + 1).keys()].map(value => ({ label: value.toString(), value: value }))}
+                                data={[...Array(sum + 1).keys()].map(value => ({ label: (value + 1).toString(), value: value }))}
                                 value={splitValues[index]?.value || 0}
                                 onChange={(value) => handleSplitChange(value.value, index)}
                                 labelField="label"
@@ -171,7 +171,7 @@ function ShowReceipt({ route }) {
                             <Text>Split_To</Text>
                             <Dropdown
                                 style={globalStyles.inputDropdown}
-                                data={[...Array(sum + 1).keys()].map(value => ({ label: value.toString(), value: value }))}
+                                data={[...Array(sum + 1).keys()].map(value => ({ label:(value + 1).toString(), value: value }))}
                                 value={split_toValues[index]?.value || 0}
                                 onChange={(value) => handleSplit_toChange(value.value, index)}
                                 labelField="label"

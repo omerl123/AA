@@ -138,8 +138,8 @@ inputDropdown: {
   width: 120,
 },
 lowerButtons: {
-  height: 60,
-  paddingTop: 10,
+  height: 50,
+  paddingTop: 0,
   backgroundColor: 'coral',
   justifyContent: 'space-between',
   alignItems: 'baseline',
@@ -156,11 +156,13 @@ buttonContainerReceipt: {
 },
 TotalPriceText:{
   fontWeight:'bold',
-  fontSize: 17,
+  fontSize: 22,
   textAlign: 'center',
   alignSelf: 'center',
   alignItems: 'center',
   justifyContent: 'center',
+  top:5,
+  left:10,
 },
 backArrow: {
   fontSize: 25,
@@ -186,6 +188,7 @@ top: 70 ,
 left:40,
 alignSelf: 'center' ,
 },
+
 buttonsFade :{
   flexDirection: 'row',
    justifyContent: 'space-around',
