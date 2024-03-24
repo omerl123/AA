@@ -208,6 +208,27 @@ buttonContainerCode: {
   alignItems: 'center',
   width: '40%',
 },
+preview: {
+alignSelf: 'stretch',
+flex: 1,
+},
+CameraButton: {
+  flex: 1,
+   justifyContent: 'flex-end', 
+   marginBottom: 36,
+},
+innerCircle: {
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: 80,
+  height: 80,
+  borderRadius: 80, 
+},
+cameraButton: {
+  borderRadius: 60, 
+  backgroundColor: 'black', 
+  padding: 10,
+},
 });
 
 

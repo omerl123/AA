@@ -7,6 +7,7 @@
   import AddProduct from '../screens/AddProduct';
   import Code from '../screens/CodeEnter';
   import Register from '../screens/Register';
+  import Camera from '../screens/Camera';
 
   const Stack = createNativeStackNavigator();
 
@@ -42,6 +43,11 @@
            <Stack.Screen
           name="Register"
           component={Register}
+          options={{ headerShown: false,Add: (props) => <Add {...props} />}}
+          />
+          <Stack.Screen
+          name="Camera"
+          component={Camera}
           options={{ headerShown: false,Add: (props) => <Add {...props} />}}
           />
         </Stack.Navigator>

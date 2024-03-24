@@ -1,8 +1,10 @@
-import React ,{useState} from 'react';
+import React ,{useState,useRef,useEffect} from 'react';
 import { View, Button, Text, } from 'react-native';
 import { globalStyles } from '../styles/global';
 import Header from '../components/Header';
 import { useNavigation } from '@react-navigation/native';
+
+
 
 
 function CenterSquareScreen ({route})  {
@@ -14,6 +16,8 @@ function CenterSquareScreen ({route})  {
     { name: 'cola', amount: 2, price: 10 },
     { name: 'water', amount: 5, price: 7 },
   ]);
+
+
     
 function generateRandomPassword() {
   const length = 7;
@@ -34,7 +38,7 @@ function generateRandomPassword() {
        <Text style={globalStyles.helloText}>Hello {route.params.parmaKey}</Text>
       <View style={globalStyles.square}/>
       <View style={globalStyles.buttonContainer}>
-      <Button title="Scan" onPress={() => navigation.navigate("Show", {
+      <Button title="Scan" onPress={() => navigation.navigate("Camera", {
       products: products,
       setProducts: setProducts,
       password : generateRandomPassword(),
