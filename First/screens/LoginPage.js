@@ -22,7 +22,7 @@ function LoginPage() {
           <TextInput style={globalStyles.input} tvalue={UserName} onChangeText={SetUserName} placeholder='Enter Username...' />
           <Text>Password</Text>
           <TextInput style={globalStyles.input} value={Password} onChangeText={SetPassword} placeholder='Enter Password...' />
-          <View style={globalStyles.buttonContainer}>
+          <View style={[globalStyles.buttonContainer,{marginLeft:50}]}>
             <Button title='Login' style={globalStyles.button} onPress={() => navigation.navigate("Scan",{
               parmaKey: UserName
             })

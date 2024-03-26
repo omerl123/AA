@@ -49,7 +49,7 @@ export const globalStyles = StyleSheet.create({
     paddingHorizontal: 1,
     marginTop: 10,
     alignItems: 'center',
-    width: '40%',
+    width: '50%',
   },
   button: {
     width: '45%',
@@ -59,7 +59,6 @@ export const globalStyles = StyleSheet.create({
   square: {
     width: 300,
     height: 400,
-    backgroundColor: 'lightgrey',
     marginTop: 40,
     marginBottom: 50,
   },
@@ -228,6 +227,11 @@ cameraButton: {
   borderRadius: 60, 
   backgroundColor: 'black', 
   padding: 10,
+},
+camera: {
+  width: 100,
+  height: 400,
+  aspectRatio: 3/4,
 },
 });
 

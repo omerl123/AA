@@ -5,13 +5,30 @@ import { Camera } from 'expo-camera';
 import { shareAsync } from 'expo-sharing';
 import * as MediaLibrary from 'expo-media-library';
 import { MaterialIcons } from '@expo/vector-icons';
+import { useNavigation} from '@react-navigation/native';
 
-function CameraComponent() {
+function CameraComponent({route}) {
     let cameraRef = useRef();
+    const navigation = useNavigation();
     const [hasCameraPermission, setHasCameraPermission] = useState();
     const [hasMediaLibraryPermission, setHasMediaLibraryPermission] = useState();
     const [photo, setPhoto] = useState();
     const [shareOptionVisible, setShareOptionVisible] = useState(true);
+    const initialProducts = route.params && route.params.products ? route.params.products : [];
+    const [products, setProducts] = useState(initialProducts);
+
+    function generateRandomPassword() {
+        const length = 7;
+        const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        let password = '';
+      
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * charset.length);
+          password += charset[randomIndex];
+        }
+      
+        return password;
+      }
 
     useEffect(() => {
         (async () => {
@@ -21,6 +38,8 @@ function CameraComponent() {
             setHasMediaLibraryPermission(mediaLibraryPermission.status === 'granted');
         })();
     }, []);
+
+    
 
     if (hasCameraPermission === undefined) {
         return <Text>Requesting permission...</Text>;
@@ -48,6 +67,11 @@ function CameraComponent() {
             MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
                 setPhoto(undefined);
             });
+            navigation.navigate("Show", {
+                products: products,
+                setProducts: setProducts,
+                password : generateRandomPassword(),
+              })
         };
     const handleShareOptionPress = () => {
         setShareOptionVisible(false);
