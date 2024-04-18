@@ -87,7 +87,7 @@ function generateRandomPassword() {
   return (
     <View style={globalStyles.container}>
        <Header />
-       <Text style={globalStyles.helloText}>Hello {route.params.parmaKey}</Text>
+       <Text style={globalStyles.helloText}>Hello {route.params.paramKey}</Text>
       <View style={globalStyles.square}>
       <Camera style={globalStyles.camera} ref={cameraRef} />
       </View>

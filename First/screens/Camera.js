@@ -6,6 +6,7 @@ import { shareAsync } from 'expo-sharing';
 import * as MediaLibrary from 'expo-media-library';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation} from '@react-navigation/native';
+import TextRecognition from 'react-native-text-recognition';
 
 function CameraComponent({route}) {
     let cameraRef = useRef();
@@ -16,6 +17,8 @@ function CameraComponent({route}) {
     const [shareOptionVisible, setShareOptionVisible] = useState(true);
     const initialProducts = route.params && route.params.products ? route.params.products : [];
     const [products, setProducts] = useState(initialProducts);
+    const [NText, setNText] = useState(null);
+
 
     function generateRandomPassword() {
         const length = 7;
@@ -29,6 +32,25 @@ function CameraComponent({route}) {
       
         return password;
       }
+      const uploadImage = async (imageData) => {
+        try {
+            const response = await fetch('http://192.168.1.40:5000/upload_image', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ image_data: imageData })
+            });
+    
+            const data = await response.json();
+            console.log(data); // הדפסת התגובה מהשרת
+        } catch (error) {
+            console.error('Error uploading image:', error );
+        }
+    };
+    
+    
+    
 
     useEffect(() => {
         (async () => {
@@ -67,11 +89,10 @@ function CameraComponent({route}) {
             MediaLibrary.saveToLibraryAsync(photo.uri).then(() => {
                 setPhoto(undefined);
             });
-            navigation.navigate("Show", {
-                products: products,
-                setProducts: setProducts,
-                password : generateRandomPassword(),
-              })
+            uploadImage(photo.base64);
+            navigation.navigate("TestT", {
+                text: NText
+            })
         };
     const handleShareOptionPress = () => {
         setShareOptionVisible(false);
@@ -111,6 +132,6 @@ function CameraComponent({route}) {
             </View>
         </Camera>
     );
-}
+      }
 
 export default CameraComponent;

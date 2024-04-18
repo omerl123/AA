@@ -98,9 +98,9 @@ function ShowReceipt({ route }) {
                                 style={globalStyles.productsButtons}
                                 onPress={() => {
                                     const selectedProduct = products[index];
-                                    const newAmountValue = parseInt(amountValues[index]?.value) || 0;
+                                    const newAmountValue = parseInt(amountValues[index]?.value) || 1;
                                     if (newAmountValue != 0){
-                                    if (selectedProduct.amount - newAmountValue >= 0) {
+                                    if (selectedProduct.amount - newAmountValue > 0) {
                                         const newTotal = totalPrice + newAmountValue * selectedProduct.price;
                                         setProducts(prevProducts => {
                                             const updatedProducts = [...prevProducts];
@@ -119,8 +119,8 @@ function ShowReceipt({ route }) {
                             />
                             <Dropdown
                                 style={globalStyles.inputDropdown}
-                                data={[...Array(sum + 1).keys()].map(value => ({ label:  (value + 1).toString(), value: value }))}
-                                value={amountValues[index]?.value || 0}
+                                data={[...Array(sum + 1).keys()].map(value => ({ label:  (value).toString(), value: value }))}
+                                value={amountValues[index]?.value || 1}
                                 onChange={(value) => handleAmountChange(value.value, index)}
                                 labelField="label"
                                 valueField="value"
@@ -129,12 +129,12 @@ function ShowReceipt({ route }) {
                         </View>
                         <View style={globalStyles.buttonContainerReceipt}>
                             <Button 
-                                title="Split" 
+                                title="I Split" 
                                 style={globalStyles.productsButtons}
                                 onPress={() => {
                                     const selectedProduct = products[index];
-                                    const newSplitValue = parseInt(splitValues[index]?.value) || 0;
-                                    const newSplitToValue = parseInt(split_toValues[index]?.value) || 0;
+                                    const newSplitValue = parseInt(splitValues[index]?.value) || 1;
+                                    const newSplitToValue = parseInt(split_toValues[index]?.value) || 1;
                                     const newTotal = totalPrice + (selectedProduct.price * newSplitValue) / newSplitToValue;
                                     if (newSplitValue != 0) {
                                         if (selectedProduct.amount - newSplitValue >= 0) {
@@ -161,8 +161,8 @@ function ShowReceipt({ route }) {
                             />
                             <Dropdown
                                 style={globalStyles.inputDropdown}
-                                data={[...Array(sum + 1).keys()].map(value => ({ label: (value + 1).toString(), value: value }))}
-                                value={splitValues[index]?.value || 0}
+                                data={[...Array(sum + 1).keys()].map(value => ({ label: (value).toString(), value: value }))}
+                                value={splitValues[index]?.value || 1}
                                 onChange={(value) => handleSplitChange(value.value, index)}
                                 labelField="label"
                                 valueField="value"
@@ -171,8 +171,8 @@ function ShowReceipt({ route }) {
                             <Text>Split_To</Text>
                             <Dropdown
                                 style={globalStyles.inputDropdown}
-                                data={[...Array(sum + 1).keys()].map(value => ({ label:(value + 1).toString(), value: value }))}
-                                value={split_toValues[index]?.value || 0}
+                                data={[...Array(sum + 1).keys()].map(value => ({ label:(value ).toString(), value: value }))}
+                                value={split_toValues[index]?.value || 1}
                                 onChange={(value) => handleSplit_toChange(value.value, index)}
                                 labelField="label"
                                 valueField="value"

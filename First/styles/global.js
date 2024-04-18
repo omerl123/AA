@@ -147,11 +147,11 @@ lowerButtons: {
 
 buttonContainerReceipt: {
   flexDirection: 'row-reverse',
-  justifyContent: 'flex-end',
+  justifyContent: 'flex-start',
   paddingHorizontal: 1,
   marginTop: -10,
   alignItems: 'center',
-  width: '55%',
+  width: '100%',
 },
 TotalPriceText:{
   fontWeight:'bold',
